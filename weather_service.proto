@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package weather;
+
+service WeatherService {
+  // Get current weather for a location
+  rpc GetWeather(LocationRequest) returns (WeatherResponse) {}
+  
+  // Subscribe to weather updates for a location
+  rpc SubscribeWeather(LocationRequest) returns (stream WeatherResponse) {}
+  
+  // Report weather conditions for a location
+  rpc ReportWeather(WeatherReport) returns (ReportResponse) {}
+}
+
+message LocationRequest {
+  string city = 1;
+  string country = 2;
+}
+
+message WeatherResponse {
+  string city = 1;
+  string country = 2;
+  float temperature_celsius = 3;
+  string condition = 4;
+  float humidity = 5;
+  float wind_speed = 6;
+  string timestamp = 7;
+}
+
+message WeatherReport {
+  string city = 1;
+  string country = 2;
+  float temperature_celsius = 3;
+  string condition = 4;
+  float humidity = 5;
+  float wind_speed = 6;
+  string reporter_id = 7;
+}
+
+message ReportResponse {
+  bool success = 1;
+  string report_id = 2;
+  string message = 3;
+}
